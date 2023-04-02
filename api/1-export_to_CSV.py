@@ -22,8 +22,8 @@ if __name__ == "__main__":
         writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
         for task in todos:
             writer.writerow(
-                    [employee_id, employee['username']
-                        task['completed'], task['title']])
+                    [employee_id, employee['username'], task['completed']
+                        task['title']])
 
     print("Employee {} is done with tasks({}/{}):".format(employee.get('name'),
           len([t for t in todos if t['completed']]), len(todos)))
