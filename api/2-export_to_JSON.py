@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-"""export data in the JSON format"""
+"""using this REST API, for a given employee ID, returns TODO list"""
 import json
-from sys import argv
 import requests
+from sys import argv
 
 
 if __name__ == "__main__":
@@ -17,13 +17,14 @@ if __name__ == "__main__":
     todos = requests.get(todos_url).json()
 
     tasks = []
-    for t in todos:
-        tasks.append({'task': t['title'],
-                      'completed': t['completed'],
-                      'username': employee['username']})
+    for task in todos:
+        tasks.append({
+            'task': task.get('title'),
+            'completed': task.get('completed'),
+            'username': employee.get('username')
+        })
     task_dict = {}
-    task_dict[employee['username']] = tasks
-    with open(
-            '{}.json'.format(employee['username']),
-            'w+', encoding='UTF8') as f:
+    task_dict[employee.get('id')] = tasks
+    with open('{}.json'.format(employee.get('id')), 'w+', encoding='UTF8') as f:
         f.write(json.dumps(task_dict))
+
