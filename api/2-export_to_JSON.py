@@ -25,6 +25,7 @@ if __name__ == "__main__":
         })
     task_dict = {}
     task_dict[employee.get('id')] = tasks
-    with open('{}.json'.format(employee.get('id')), 'w+', encoding='UTF8') as f:
+    with open(
+            '{}.json'.format(employee.get('id')), 'w+',
+            encoding='UTF8') as f:
         f.write(json.dumps(task_dict))
-
