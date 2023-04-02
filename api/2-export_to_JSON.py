@@ -16,12 +16,14 @@ if __name__ == "__main__":
                  .format(employee_id))
     todos = requests.get(todos_url).json()
 
-    completed_tasks = [{"task": task.get(
-        'title'), "completed": task.get(
-            'completed'), "username": employee.get('username')}
-                       for task in todos if task.get('completed') is True]
-
-    data = {employee_id: completed_tasks}
-
-    with open('{}.json'.format(employee_id), mode='w') as f:
-        json.dump(data, f)
+    tasks = []
+    for t in todos:
+        tasks.append({'task': t['title'],
+                      'completed': t['completed'],
+                      'username': employee['username']})
+    task_dict = {}
+    task_dict[employee['username']] = tasks
+    with open(
+            '{}.json'.format(employee['username']),
+            'w+', encoding='UTF8') as f:
+        f.write(json.dumps(task_dict))
